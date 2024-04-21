@@ -26,8 +26,8 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Token resetado!")
 
-	to := []string{"lucasbeijato0@gmail.com"}
-	subject := "Um recado de MinerAdsLib."
+	to := []string{b.Costumer.Email}
+	subject := "[Em Atraso] - Um recado de MinerAdsLib."
 	body := "Olá, sua assinatura foi suspensa por falta de pagamento, entre em contato conosco!"
 
 	if err := emailservice.Send_Email(to, subject, body); err != nil {

@@ -43,9 +43,9 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Token Atualizado no sistema!")
 
-	to := []string{"lucasbeijato0@gmail.com"}
-	subject := "Um recado de MinerAdsLib."
-	body := "Olá, sua assinatura foi renovada. Segue seu novo Token: " + token
+	to := []string{New_User.Data_User.Costumer.Email}
+	subject := "[Renovado] - Um recado de MinerAdsLib."
+	body := "Olá, sua assinatura foi renovada.\n\nSegue seu novo Token: " + token
 
 	if err := emailservice.Send_Email(to, subject, body); err != nil {
 		return c.SendStatus(500)

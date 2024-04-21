@@ -43,9 +43,10 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	fmt.Println("[app]: Adicionado ao banco de dados.")
 
 	// EMAIL
-	to := []string{"lucasbeijato0@gmail.com"}
-	subject := "Um recado de MinerAdsLib."
-	body := "Olá, você foi registrado dentro do nosso sistema, seu token de acesso a extensão é: " + token
+	to := []string{New_User.Data_User.Costumer.Email}
+	subject := "[Registrado] - Um recado de MinerAdsLib."
+	// body := "Olá, você foi registrado dentro do nosso sistema, seu token de acesso a extensão é: " + token
+	body := fmt.Sprintf("Olá, você foi registrado dentro do nosso sistema.\n\nSeu Token é: %s", token)
 
 	if err := emailservice.Send_Email(to, subject, body); err != nil {
 		return c.SendStatus(500)
