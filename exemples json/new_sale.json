@@ -1,0 +1,97 @@
+{
+  "order_id": "66661695-56e3-4633-8b76-979a12ad4ffb",
+  "order_ref": "DejyEps",
+  "order_status": "paid",
+  "product_type": "membership",
+  "payment_method": "credit_card",
+  "store_id": "s39dAGr4dZSEHp9",
+  "payment_merchant_id": "56617923",
+  "installments": 1,
+  "card_type": "mastercard",
+  "card_last4digits": "7451",
+  "card_rejection_reason": null,
+  "boleto_URL": null,
+  "boleto_barcode": null,
+  "boleto_expiry_date": null,
+  "pix_code": null,
+  "pix_expiration": null,
+  "sale_type": "producer",
+  "created_at": "2024-04-20 19:38",
+  "updated_at": "2024-04-20 19:38",
+  "approved_date": "2024-04-21 19:38",
+  "refunded_at": null,
+  "webhook_event_type": "order_approved",
+  "Product": {
+    "product_id": "230512f3-1e8d-4cf7-9512-657dfb7f001b",
+    "product_name": "Example product"
+  },
+  "Customer": {
+    "full_name": "John Doe",
+    "first_name": "John",
+    "email": "johndoe@example.com",
+    "mobile": "+18961473854",
+    "CPF": "27410540784",
+    "ip": "196.110.207.87"
+  },
+  "Commissions": {
+    "charge_amount": "8709",
+    "product_base_price": "8709",
+    "kiwify_fee": "958",
+    "commissioned_stores": [
+      {
+        "id": "ddd044aa-672a-4653-a76c-7d8e1dcbdc6b",
+        "type": "producer",
+        "custom_name": "Example store",
+        "email": "example@store.domain",
+        "value": "7751"
+      }
+    ],
+    "currency": "BRL",
+    "my_commission": "7751",
+    "funds_status": null,
+    "estimated_deposit_date": null,
+    "deposit_date": null
+  },
+  "TrackingParameters": {
+    "src": null,
+    "sck": null,
+    "utm_source": null,
+    "utm_medium": null,
+    "utm_campaign": null,
+    "utm_content": null,
+    "utm_term": null
+  },
+  "Subscription": {
+    "id": "8f96e9b0-f417-45b7-a249-ebcef1fd7f6e",
+    "start_date": "2024-04-17T19:38:52.107Z",
+    "next_payment": "2024-04-24T19:38:52.107Z",
+    "status": "active",
+    "plan": {
+      "id": "6c895ab0-3515-43a5-8f04-d7a04de80d4e",
+      "name": "Example plan",
+      "frequency": "weekly",
+      "qty_charges": 0
+    },
+    "charges": {
+      "completed": [
+        {
+          "order_id": "66661695-56e3-4633-8b76-979a12ad4ffb",
+          "amount": 7751,
+          "status": "paid",
+          "installments": 1,
+          "card_type": "mastercard",
+          "card_last_digits": "2041",
+          "card_first_digits": "241429",
+          "created_at": "2024-04-17T19:38:52.107Z"
+        }
+      ],
+      "future": [
+        {
+          "charge_date": "2024-04-24T19:38:52.107Z"
+        }
+      ]
+    }
+  },
+  "subscription_id": "8f96e9b0-f417-45b7-a249-ebcef1fd7f6e",
+  "access_url": null
+}
