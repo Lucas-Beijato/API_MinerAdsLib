@@ -72,7 +72,7 @@ func Delete_User(subscription *req_res_types.KiwifyResponse) error {
 	}
 
 	coll := client.Database("MinerAds").Collection("users")
-	to_delete := bson.D{{Key: "Data_User", Value: bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}}}
+	to_delete := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
 
 	_, errInsert := coll.DeleteMany(context_custom, to_delete)
 	if errInsert != nil {
