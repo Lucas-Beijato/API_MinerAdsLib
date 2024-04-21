@@ -45,7 +45,13 @@ func Isert_New_User_in_DB(newUser *req_res_types.User) error {
 
 	coll := client.Database("MinerAds").Collection("users")
 
-	_, errInsert := coll.InsertOne(context_custom, newUser)
+	new_user := req_res_types.User{
+		Data_User:       newUser.Data_User,
+		Token:           newUser.Token,
+		Subscription_ID: newUser.Data_User.Subscription_ID,
+	}
+
+	_, errInsert := coll.InsertOne(context_custom, new_user)
 	if errInsert != nil {
 		fmt.Println("Error em inserir o usuário!: " + errInsert.Error())
 		return errInsert

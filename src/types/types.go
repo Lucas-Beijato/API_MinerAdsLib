@@ -46,6 +46,7 @@ type KiwifyResponse struct {
 
 // User in DB
 type User struct {
-	Data_User *KiwifyResponse `bson:"Data_User"`
-	Token     string          `bson:"token"`
+	Data_User       *KiwifyResponse `bson:"Data_User"`
+	Token           string          `bson:"token"`
+	Subscription_ID string          `json:"subscription_id"`
 }
