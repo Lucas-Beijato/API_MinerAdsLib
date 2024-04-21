@@ -16,15 +16,13 @@ func main() {
 	app := fiber.New()
 
 	// v1 version
-	v1 := app.Group("/v1", func(c *fiber.Ctx) error {
-		return c.SendString("Hello Word!")
-	})
+	v1 := app.Group("/v1")
 
 	// WebHooks
-	v1.Post("/newSale/", webhooks.New_Sale_Handle)
+	v1.Post("/newSale", webhooks.New_Sale_Handle)
 
 	// Routes
-	v1.Post("/validate_token/", routes.Validate_Token_Handle)
+	v1.Post("/validate_token", routes.Validate_Token_Handle)
 
 	// Start Server
 	fmt.Println("[App]: Essa bagaça ta rodando! 🚀 ")
