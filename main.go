@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"ApiExtention.com/src/routes"
+	"ApiExtention.com/src/routes/v1"
 	"ApiExtention.com/src/routes/v1/webhooks"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
