@@ -96,7 +96,7 @@ func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
 
 	coll := client.Database("MinerAds").Collection("users")
 	filter := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
-	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "subscription_id", Value: ""}}}}
+	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "token", Value: ""}}}}
 
 	_, errInsert := coll.UpdateOne(context_custom, filter, update_to)
 	if errInsert != nil {
