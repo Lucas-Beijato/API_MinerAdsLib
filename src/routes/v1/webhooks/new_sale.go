@@ -11,7 +11,7 @@ import (
 )
 
 // Handle for a new sale
-func New_Sale_Handle(c *fiber.Ctx) error {
+func New_Sale_Handler(c *fiber.Ctx) error {
 	b := new(req_res_types.NewSale)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("Error to parse body")

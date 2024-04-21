@@ -16,16 +16,13 @@ func main() {
 	app := fiber.New()
 
 	// v1 version
-	v1 := app.Group("/v1")
-
-	Handler_newSale := webhooks.New_Sale_Handle
-	Handler_Val_tok := routes.Validate_Token_Handle
+	v1 := app.Group("/v1/")
 
 	// WebHooks
-	v1.Post("/newSale", Handler_newSale)
+	v1.Post("/newSale", webhooks.New_Sale_Handler)
 
 	// Routes
-	v1.Post("/validate_token", Handler_Val_tok)
+	v1.Post("/validate_token", routes.Validate_Token_Handler)
 
 	// Start Server
 	fmt.Println("[App]: Essa bagaça ta rodando! 🚀 ")

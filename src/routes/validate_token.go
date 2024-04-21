@@ -9,7 +9,7 @@ import (
 )
 
 // Validate Token from client side
-func Validate_Token_Handle(c *fiber.Ctx) error {
+func Validate_Token_Handler(c *fiber.Ctx) error {
 	b := new(req_res_types.Validate_Token_Body)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("Erro no parse body")
