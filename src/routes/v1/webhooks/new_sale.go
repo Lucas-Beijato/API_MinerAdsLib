@@ -22,7 +22,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	}
 
 	// GEN TOKEN
-	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription.ID)
+	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription_ID)
 	if errToGenToken != nil {
 		fmt.Println(errToGenToken)
 		return c.SendStatus(500)

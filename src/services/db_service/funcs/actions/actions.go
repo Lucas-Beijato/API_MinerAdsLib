@@ -107,3 +107,27 @@ func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
 	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
 	return nil
 }
+
+// Update Token for renewed subscriptions
+func Update_Token_User(subscription *req_res_types.User) error {
+	context_custom := context.Background()
+
+	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
+	if errGen != nil {
+		fmt.Println(errGen)
+		return errGen
+	}
+
+	coll := client.Database("MinerAds").Collection("users")
+	filter := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
+	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "token", Value: subscription.Token}}}}
+
+	_, errInsert := coll.UpdateOne(context_custom, filter, update_to)
+	if errInsert != nil {
+		fmt.Println("Error ao excluir um usuário!: " + errInsert.Error())
+		return errInsert
+	}
+
+	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
+	return nil
+}

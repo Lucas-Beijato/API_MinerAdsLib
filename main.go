@@ -22,6 +22,7 @@ func main() {
 	v1.Post("/new_sale", webhooks.New_Sale_Handler)
 	v1.Post("/unsubscribe", webhooks.Wh_Nulled_Sub_Handler)
 	v1.Post("/overdue_subscription", webhooks.Wh_Overdue_Sub_Handler)
+	v1.Post("/renewed_subscription", webhooks.Wh_Renewed_Sub_Handler)
 
 	// Routes
 	v1.Post("/validate_token", routes.Validate_Token_Handler)
