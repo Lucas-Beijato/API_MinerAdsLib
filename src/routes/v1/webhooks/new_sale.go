@@ -12,16 +12,13 @@ import (
 
 // Handle for a new sale
 func New_Sale_Handler(c *fiber.Ctx) error {
+
+	fmt.Println("Entrada no webhook '/newSale', novo user.")
+
 	b := new(req_res_types.NewSale)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("Error to parse body")
 	}
-
-	if b.WebHook_Event_type != "order_approved" {
-		return c.SendStatus(400)
-	}
-
-	fmt.Println("Entrada no webhook '/newSale', novo user.")
 
 	// GEN TOKEN
 	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription.ID)
