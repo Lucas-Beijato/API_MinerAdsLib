@@ -54,3 +54,26 @@ func Isert_New_User_in_DB(newUser *req_res_types.User) error {
 	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
 	return nil
 }
+
+// Delete an User DB
+func Delete_User(subscription *req_res_types.KiwifyResponse) error {
+	context_custom := context.Background()
+
+	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
+	if errGen != nil {
+		fmt.Println(errGen)
+		return errGen
+	}
+
+	coll := client.Database("MinerAds").Collection("users")
+	filter := bson.M{"subscription_id": subscription.Subscription_ID}
+
+	_, errInsert := coll.DeleteOne(context_custom, filter)
+	if errInsert != nil {
+		fmt.Println("Error ao excluir um usuário!: " + errInsert.Error())
+		return errInsert
+	}
+
+	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
+	return nil
+}

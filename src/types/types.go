@@ -35,16 +35,17 @@ type Plan struct {
 }
 
 // New Sale type
-type NewSale struct {
+type KiwifyResponse struct {
 	Costumer           Costumer     `json:"Customer"`
 	WebHook_Event_type string       `json:"order_approved"`
 	Access_url         string       `json:"access_url"`
 	Product            Product      `json:"Product"`
 	Subscription       Subscription `json:"Subscription"`
+	Subscription_ID    string       `json:"subscription_id"`
 }
 
 // User in DB
 type User struct {
-	Data_User *NewSale `bson:"Data_User"`
-	Token     string   `bson:"token"`
+	Data_User *KiwifyResponse `bson:"Data_User"`
+	Token     string          `bson:"token"`
 }

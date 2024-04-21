@@ -13,11 +13,12 @@ import (
 // Handle for a new sale
 func New_Sale_Handler(c *fiber.Ctx) error {
 
-	fmt.Println("[app]: Entrada no webhook '/newSale', novo user.")
+	fmt.Println("[app]: Entrada no webhook '/new_sale', novo user.")
 
-	b := new(req_res_types.NewSale)
+	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("[app]: Error to parse body")
+		return c.SendStatus(400)
 	}
 
 	// GEN TOKEN

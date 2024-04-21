@@ -19,7 +19,8 @@ func main() {
 	v1 := app.Group("/v1/")
 
 	// WebHooks
-	v1.Post("/newSale", webhooks.New_Sale_Handler)
+	v1.Post("/new_sale", webhooks.New_Sale_Handler)
+	v1.Post("/unsubscribe", webhooks.Wh_nulled_sub_Handler)
 
 	// Routes
 	v1.Post("/validate_token", routes.Validate_Token_Handler)
