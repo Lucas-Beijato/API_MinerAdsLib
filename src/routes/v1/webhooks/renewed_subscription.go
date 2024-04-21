@@ -31,8 +31,9 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 	fmt.Println("[app]: Token gerado.")
 
 	New_User := req_res_types.User{
-		Data_User: b,
-		Token:     token,
+		Data_User:       b,
+		Token:           token,
+		Subscription_ID: b.Subscription_ID,
 	}
 
 	if errToCleanToken := dbactionsservice.Update_Token_User(&New_User); errToCleanToken != nil {

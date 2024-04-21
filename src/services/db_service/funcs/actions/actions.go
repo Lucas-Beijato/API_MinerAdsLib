@@ -109,7 +109,7 @@ func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
 }
 
 // Update Token for renewed subscriptions
-func Update_Token_User(subscription *req_res_types.User) error {
+func Update_Token_User(user *req_res_types.User) error {
 	context_custom := context.Background()
 
 	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
@@ -119,8 +119,8 @@ func Update_Token_User(subscription *req_res_types.User) error {
 	}
 
 	coll := client.Database("MinerAds").Collection("users")
-	filter := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
-	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "token", Value: subscription.Token}}}}
+	filter := bson.D{{Key: "subscription_id", Value: user.Subscription_ID}}
+	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "token", Value: user.Token}}}}
 
 	_, errInsert := coll.UpdateOne(context_custom, filter, update_to)
 	if errInsert != nil {
