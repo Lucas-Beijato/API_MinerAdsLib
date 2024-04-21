@@ -12,7 +12,7 @@ import (
 // For Nulled Subscriptions
 func Wh_nulled_sub_Handler(c *fiber.Ctx) error {
 
-	fmt.Println("[app]: Entrada no webhook ''")
+	fmt.Println("[app]: Entrada no webhook '/unsubscribe'")
 
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
@@ -24,6 +24,8 @@ func Wh_nulled_sub_Handler(c *fiber.Ctx) error {
 		fmt.Println("[app]: Error to delete in DB.")
 		return c.SendStatus(500)
 	}
+
+	fmt.Println("[app]: Usuário deletado do banco de dados.")
 
 	to := []string{"lucasbeijato0@gmail.com"}
 	subject := "Um recado de MinerAdsLib."
