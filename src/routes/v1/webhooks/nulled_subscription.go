@@ -10,7 +10,7 @@ import (
 )
 
 // For Nulled Subscriptions
-func Wh_nulled_sub_Handler(c *fiber.Ctx) error {
+func Wh_Nulled_Sub_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Entrada no webhook '/unsubscribe'")
 
