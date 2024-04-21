@@ -43,8 +43,8 @@ type NewSale struct {
 	Subscription       Subscription `json:"Subscription"`
 }
 
-// Insert New User in DB
-type InsertNewUserDB struct {
+// User in DB
+type User struct {
 	Data_User *NewSale `bson:"Data_User"`
 	Token     string   `bson:"token"`
 }

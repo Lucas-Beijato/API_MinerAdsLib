@@ -22,16 +22,13 @@ func Validate_Token_Handler(c *fiber.Ctx) error {
 		})
 	}
 
-	isValid, message := dbactionsfuncs.Query_Token(b.Token)
-	if !isValid {
+	if isValid := dbactionsfuncs.Query_Token(b.Token); !isValid {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error":    message,
 			"isActive": false,
 		})
 	}
 
 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-		"message":  message,
 		"isActive": true,
 	})
 }

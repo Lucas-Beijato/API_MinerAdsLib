@@ -13,11 +13,11 @@ import (
 // Handle for a new sale
 func New_Sale_Handler(c *fiber.Ctx) error {
 
-	fmt.Println("Entrada no webhook '/newSale', novo user.")
+	fmt.Println("[app]: Entrada no webhook '/newSale', novo user.")
 
 	b := new(req_res_types.NewSale)
 	if err := c.BodyParser(b); err != nil {
-		fmt.Println("Error to parse body")
+		fmt.Println("[app]: Error to parse body")
 	}
 
 	// GEN TOKEN
@@ -27,9 +27,9 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("Token gerado.")
+	fmt.Println("[app]: Token gerado.")
 
-	New_User := req_res_types.InsertNewUserDB{
+	New_User := req_res_types.User{
 		Data_User: b,
 		Token:     token,
 	}
@@ -39,7 +39,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("Adicionado ao banco de dados.")
+	fmt.Println("[app]: Adicionado ao banco de dados.")
 
 	// EMAIL
 	to := []string{"lucasbeijato0@gmail.com"}
@@ -50,7 +50,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("Email enviado.")
+	fmt.Println("[app]: Email enviado.")
 
 	// FINAL RESPONSE
 	return c.SendStatus(200)
