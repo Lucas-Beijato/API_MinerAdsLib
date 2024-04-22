@@ -22,9 +22,8 @@ func Query_Token(tokenToSearch string) bool {
 	filter := bson.D{{Key: "token", Value: tokenToSearch}}
 
 	result := req_res_types.User{}
-	err = coll.FindOne(context.Background(), filter).Decode(&result)
 
-	if err != nil {
+	if err = coll.FindOne(context.Background(), filter).Decode(&result); err != nil {
 		fmt.Println(err)
 		return false
 	}

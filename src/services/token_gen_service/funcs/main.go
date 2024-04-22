@@ -53,7 +53,7 @@ func Gen_Token(t_id *string) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
 		"transaction_ID": t_id,
-		"exp":            time.Now().Add(time.Hour * 24 * 30).Unix(),
+		"exp":            time.Now().Add(time.Hour * 24 * 32).Unix(),
 	})
 
 	tokenString, err := token.SignedString(secret_key_bytes)

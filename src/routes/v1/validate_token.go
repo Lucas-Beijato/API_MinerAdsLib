@@ -28,7 +28,7 @@ func Validate_Token_Handler(c *fiber.Ctx) error {
 		})
 	}
 
-	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"isActive": true,
 	})
 }
