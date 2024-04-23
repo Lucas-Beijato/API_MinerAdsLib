@@ -17,6 +17,7 @@ func Query_Token(tokenToSearch string) bool {
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
 
 	coll := client.Database("MinerAds").Collection("users")
 	filter := bson.D{{Key: "token", Value: tokenToSearch}}
@@ -27,8 +28,6 @@ func Query_Token(tokenToSearch string) bool {
 		fmt.Println(err)
 		return false
 	}
-
-	defer dbtoolkit.Close_DataBase_Connection(client, &context_custom)
 	return true
 }
 

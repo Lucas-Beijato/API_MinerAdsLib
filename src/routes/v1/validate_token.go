@@ -23,7 +23,7 @@ func Validate_Token_Handler(c *fiber.Ctx) error {
 	}
 
 	if isValid := dbactionsfuncs.Query_Token(b.Token); !isValid {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"isActive": false,
 		})
 	}
