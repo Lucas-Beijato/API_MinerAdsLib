@@ -2,7 +2,6 @@ package tokengenservice
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -21,11 +20,11 @@ func Get_secret_key() ([]byte, error) {
 }
 
 // Validate Token
-func Validate_Token(tokenString string) error {
+func Validate_Token(tokenString string) bool {
 
 	secretKey, err := Get_secret_key()
 	if err != nil {
-		return err
+		return false
 	}
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -33,14 +32,14 @@ func Validate_Token(tokenString string) error {
 	})
 
 	if err != nil {
-		return err
+		return false
 	}
 
 	if !token.Valid {
-		return fmt.Errorf("invalid token")
+		return false
 	}
 
-	return nil
+	return true
 }
 
 // Gen a New Token

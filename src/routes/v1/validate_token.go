@@ -23,13 +23,10 @@ func Validate_Token_Handler(c *fiber.Ctx) error {
 		})
 	}
 
-	if isValid := dbactionsfuncs.Query_Token(b.Token); !isValid {
-		return c.Status(fiber.StatusOK).JSON(fiber.Map{
-			"isActive": false,
-		})
-	}
+	isValid_token_db := dbactionsfuncs.Query_Token(b.Token)
+	isValid_token_verification := tokengenservice.Validate_Token(b.Token)
 
-	if isValid := tokengenservice.Validate_Token(b.Token); isValid != nil {
+	if !isValid_token_db || !isValid_token_verification {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"isActive": false,
 		})
