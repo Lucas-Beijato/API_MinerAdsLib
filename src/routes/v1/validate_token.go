@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	dbactionsfuncs "ApiExtention.com/src/services/db_service/funcs/actions"
+	tokengenservice "ApiExtention.com/src/services/token_gen_service/funcs"
 	req_res_types "ApiExtention.com/src/types"
 	"github.com/gofiber/fiber/v2"
 )
@@ -23,6 +24,12 @@ func Validate_Token_Handler(c *fiber.Ctx) error {
 	}
 
 	if isValid := dbactionsfuncs.Query_Token(b.Token); !isValid {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"isActive": false,
+		})
+	}
+
+	if isValid := tokengenservice.Validate_Token(b.Token); isValid != nil {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"isActive": false,
 		})
