@@ -27,7 +27,7 @@ func Wh_Nulled_Sub_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Usuário deletado do banco de dados.")
 
-	to := []string{b.Costumer.Email}
+	to := []string{b.Costumer.Email, "mineradslib@gmail.com"}
 	subject := "[Cancelado] - Um recado de MinerAdsLib."
 	body := "Olá, sua inscrição foi excluída com sucesso!"
 
