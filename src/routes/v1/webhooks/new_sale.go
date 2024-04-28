@@ -15,8 +15,11 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Entrada no webhook '/new_sale'")
 
-	headers := c.Request().Body()
-	fmt.Println(headers)
+	req_headers := c.GetReqHeaders()
+	fmt.Println(req_headers)
+
+	req_params := c.Params("token")
+	fmt.Println(req_params)
 
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
