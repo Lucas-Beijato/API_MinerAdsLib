@@ -16,19 +16,13 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	fmt.Println("[app]: Entrada no webhook '/new_sale'")
 
 	// ----------------------------------------------
-	req_headers := c.GetReqHeaders()
-	fmt.Println(req_headers)
-
-	res_headers := c.GetRespHeaders()
-	fmt.Println(res_headers)
-
-	cookies := new(any)
-	if err := c.CookieParser(cookies); err != nil {
+	cookies := new(interface{})
+	if err := c.CookieParser(&cookies); err != nil {
 		fmt.Println("Erro no parse de cookies")
 	}
 
-	body_test := new(any)
-	if err := c.BodyParser(body_test); err != nil {
+	body_test := new(interface{})
+	if err := c.BodyParser(&body_test); err != nil {
 		fmt.Println("Erro no parse do body")
 	}
 	fmt.Println(body_test)
