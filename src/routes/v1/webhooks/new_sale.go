@@ -18,8 +18,18 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	req_headers := c.GetReqHeaders()
 	fmt.Println(req_headers)
 
-	req_params := c.Params("token")
-	fmt.Println(req_params)
+	res_headers := c.GetRespHeaders()
+	fmt.Println(res_headers)
+
+	cookies := new(any)
+	if err := c.CookieParser(cookies); err != nil {
+		fmt.Println("Erro no parse de cookies")
+	}
+
+	body := new(any)
+	if err := c.BodyParser(body); err != nil {
+		fmt.Println("Erro no parse do body")
+	}
 
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
