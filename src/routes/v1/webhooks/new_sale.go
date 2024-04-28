@@ -18,6 +18,9 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	headers := c.GetReqHeaders()
 	fmt.Println(headers)
 
+	headers = c.GetRespHeaders()
+	fmt.Println(headers)
+
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("[app]: Error to parse body")
