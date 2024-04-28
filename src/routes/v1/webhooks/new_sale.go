@@ -27,11 +27,11 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		fmt.Println("Erro no parse de cookies")
 	}
 
-	body := new(any)
-	if err := c.BodyParser(body); err != nil {
+	body_test := new(any)
+	if err := c.BodyParser(body_test); err != nil {
 		fmt.Println("Erro no parse do body")
 	}
-	fmt.Println(body)
+	fmt.Println(body_test)
 	fmt.Println(cookies)
 	// -----------------------------------------------
 
