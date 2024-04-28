@@ -15,6 +15,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Entrada no webhook '/new_sale'")
 
+	// ----------------------------------------------
 	req_headers := c.GetReqHeaders()
 	fmt.Println(req_headers)
 
@@ -30,6 +31,9 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	if err := c.BodyParser(body); err != nil {
 		fmt.Println("Erro no parse do body")
 	}
+	fmt.Println(body)
+	fmt.Println(cookies)
+	// -----------------------------------------------
 
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
