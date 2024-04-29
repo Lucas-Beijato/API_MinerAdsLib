@@ -33,7 +33,7 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 		return err
 	}
 
-	bodyMessage := []byte(c.Body())
+	bodyMessage := c.Body()
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
