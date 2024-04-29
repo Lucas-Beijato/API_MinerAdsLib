@@ -20,10 +20,10 @@ func main() {
 
 	// WebHooks
 	wh := v1.Group("/wh/") // /v1/wh/
-	wh.Post("/new_sale", webhooks.New_Sale_Handler)
-	wh.Post("/unsubscribe", webhooks.Wh_Unsubscribe_Handler)
-	wh.Post("/overdue_subscription", webhooks.Wh_Overdue_Sub_Handler)
-	wh.Post("/renewed_subscription", webhooks.Wh_Renewed_Sub_Handler)
+	wh.Post("/new_sale/:signature", webhooks.New_Sale_Handler)
+	wh.Post("/unsubscribe/:signature", webhooks.Wh_Unsubscribe_Handler)
+	wh.Post("/overdue_subscription/:signature", webhooks.Wh_Overdue_Sub_Handler)
+	wh.Post("/renewed_subscription/:signature", webhooks.Wh_Renewed_Sub_Handler)
 
 	// Routes
 	v1.Post("/validate_token/", routes.Validate_Token_Handler)
