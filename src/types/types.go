@@ -1,5 +1,9 @@
 package req_res_types
 
+type ParamsSignature struct {
+	Signature string `query:"signature"`
+}
+
 // Body type response to validate token
 type Validate_Token_Body struct {
 	Token string `json:"token"`

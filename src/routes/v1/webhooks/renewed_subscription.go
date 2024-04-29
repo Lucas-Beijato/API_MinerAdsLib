@@ -29,8 +29,14 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		fmt.Println("Renewed Subscription Token Not Present")
 		return c.SendStatus(400)
 	}
+
+	signature := new(req_res_types.ParamsSignature)
+	if err := c.QueryParser(signature); err != nil {
+		return err
+	}
+
 	bodyMessage := []byte(c.Body())
-	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(c.Params("signature")), []byte(key))
+	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
 		return c.SendStatus(400)
