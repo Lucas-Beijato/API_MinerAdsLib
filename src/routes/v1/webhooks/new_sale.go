@@ -41,6 +41,8 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		fmt.Println("Error to Marshal Json")
 		return c.SendStatus(400)
 	}
+
+	fmt.Println(string(bodyMessage))
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
