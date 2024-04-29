@@ -1,6 +1,7 @@
 package webhooks
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 
@@ -35,7 +36,11 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		return err
 	}
 
-	bodyMessage := c.Body()
+	bodyMessage, err_json_marshal := json.Marshal(b)
+	if err_json_marshal != nil {
+		fmt.Println("Error to Marshal Json")
+		return c.SendStatus(400)
+	}
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
