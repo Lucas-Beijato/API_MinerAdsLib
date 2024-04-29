@@ -2,10 +2,12 @@ package webhooks
 
 import (
 	"fmt"
+	"os"
 
 	dbactionsservice "ApiExtention.com/src/services/db_service/funcs/actions"
 	emailservice "ApiExtention.com/src/services/email_service/funcs"
 	tokengenservice "ApiExtention.com/src/services/token_gen_service/funcs"
+	validatesignature "ApiExtention.com/src/services/validate_signature"
 	req_res_types "ApiExtention.com/src/types"
 	"github.com/gofiber/fiber/v2"
 )
@@ -15,23 +17,22 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Entrada no webhook '/new_sale'")
 
-	// ----------------------------------------------
-	cookies := new(interface{})
-	if err := c.CookieParser(&cookies); err != nil {
-		fmt.Println("Erro no parse de cookies")
-	}
-
-	body_test := new(interface{})
-	if err := c.BodyParser(&body_test); err != nil {
-		fmt.Println("Erro no parse do body")
-	}
-	fmt.Println(body_test)
-	fmt.Println(cookies)
-	// -----------------------------------------------
-
 	b := new(req_res_types.KiwifyResponse)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("[app]: Error to parse body")
+		return c.SendStatus(400)
+	}
+
+	// Validate Signature
+	key, isPresentKey := os.LookupEnv("TK_NEW_SALE")
+	if !isPresentKey {
+		fmt.Println("New Sale Token Not Present")
+		return c.SendStatus(400)
+	}
+	bodyMessage := []byte(c.Body())
+	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(c.Params("signature")), []byte(key))
+	if !isValidSignature {
+		fmt.Println("Not Valid Signature")
 		return c.SendStatus(400)
 	}
 
