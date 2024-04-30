@@ -99,7 +99,7 @@ type Charges struct {
 
 type Completed struct {
 	Order_id          string `json:"order_id"`
-	Amount            int8   `json:"amount"`
+	Amount            int64  `json:"amount"`
 	Status            string `json:"status"`
 	Installments      int8   `json:"installments"`
 	Card_type         string `json:"card_type"`
