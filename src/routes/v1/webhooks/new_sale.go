@@ -34,11 +34,13 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return err
 	}
 	bodyMessage := c.BodyRaw()
+	fmt.Println("Print Body Raw: ", string(bodyMessage))
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
 		return c.SendStatus(400)
 	}
+	// --------------------
 
 	// GEN TOKEN
 	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription_ID)
