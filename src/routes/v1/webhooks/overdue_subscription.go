@@ -7,19 +7,13 @@ import (
 	dbactionsservice "ApiExtention.com/src/services/db_service/funcs/actions"
 	emailservice "ApiExtention.com/src/services/email_service/funcs"
 	validatesignature "ApiExtention.com/src/services/validate_signature"
-	req_res_types "ApiExtention.com/src/types"
+	paramssignaturetype "ApiExtention.com/src/types/params_signature"
+	reqkiwifywhtype "ApiExtention.com/src/types/req_kiwify_wh"
 	"github.com/gofiber/fiber/v2"
 )
 
 // For Overdue Subscription
 func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
-	fmt.Println("[app]: Entrada no webhook '/overdue_subscription'")
-
-	b := new(req_res_types.KiwifyResponse)
-	if err := c.BodyParser(b); err != nil {
-		fmt.Println("[app]: Error to parse body")
-		return c.SendStatus(400)
-	}
 
 	// Validate Signature
 	key, isPresentKey := os.LookupEnv("TK_OVERDUE_SUBSCRIPTION")
@@ -28,7 +22,7 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(400)
 	}
 
-	signature := new(req_res_types.ParamsSignature)
+	signature := new(paramssignaturetype.Params_Signature)
 	if err := c.QueryParser(signature); err != nil {
 		return err
 	}
@@ -36,6 +30,15 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
+		return c.SendStatus(400)
+	}
+	// --------------------
+
+	fmt.Println("[app]: Entrada no webhook '/overdue_subscription'")
+
+	b := new(reqkiwifywhtype.Req_Kiwify_Wh_Type)
+	if err := c.BodyParser(b); err != nil {
+		fmt.Println("[app]: Error to parse body")
 		return c.SendStatus(400)
 	}
 

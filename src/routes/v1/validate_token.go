@@ -5,13 +5,13 @@ import (
 
 	dbactionsfuncs "ApiExtention.com/src/services/db_service/funcs/actions"
 	tokengenservice "ApiExtention.com/src/services/token_gen_service/funcs"
-	req_res_types "ApiExtention.com/src/types"
+	tokentype "ApiExtention.com/src/types/token"
 	"github.com/gofiber/fiber/v2"
 )
 
 // Validate Token from client side
 func Validate_Token_Handler(c *fiber.Ctx) error {
-	b := new(req_res_types.Validate_Token_Body)
+	b := new(tokentype.Validate_Token_Body)
 	if err := c.BodyParser(b); err != nil {
 		fmt.Println("Erro no parse body")
 	}

@@ -8,20 +8,14 @@ import (
 	emailservice "ApiExtention.com/src/services/email_service/funcs"
 	tokengenservice "ApiExtention.com/src/services/token_gen_service/funcs"
 	validatesignature "ApiExtention.com/src/services/validate_signature"
-	req_res_types "ApiExtention.com/src/types"
+	paramssignaturetype "ApiExtention.com/src/types/params_signature"
+	reqkiwifywhtype "ApiExtention.com/src/types/req_kiwify_wh"
+	usertype "ApiExtention.com/src/types/user"
 	"github.com/gofiber/fiber/v2"
 )
 
 // For Renewed Subscription
 func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
-
-	fmt.Println("[app]: Entrada no webhook '/renewed_subscription'")
-
-	b := new(req_res_types.KiwifyResponse)
-	if err := c.BodyParser(b); err != nil {
-		fmt.Println("[app]: Error to parse body")
-		return c.SendStatus(400)
-	}
 
 	// Validate Signature
 	key, isPresentKey := os.LookupEnv("TK_RENEWED_SUBSCRIPTION")
@@ -30,7 +24,7 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(400)
 	}
 
-	signature := new(req_res_types.ParamsSignature)
+	signature := new(paramssignaturetype.Params_Signature)
 	if err := c.QueryParser(signature); err != nil {
 		return err
 	}
@@ -40,9 +34,18 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		fmt.Println("Not Valid Signature")
 		return c.SendStatus(400)
 	}
+	// --------------------
+
+	fmt.Println("[app]: Entrada no webhook '/renewed_subscription'")
+
+	b := new(reqkiwifywhtype.Req_Kiwify_Wh_Type)
+	if err := c.BodyParser(b); err != nil {
+		fmt.Println("[app]: Error to parse body")
+		return c.SendStatus(400)
+	}
 
 	// GEN TOKEN
-	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription_ID)
+	token, errToGenToken := tokengenservice.Gen_Token(&b.Subscription_id)
 	if errToGenToken != nil {
 		fmt.Println(errToGenToken)
 		return c.SendStatus(500)
@@ -50,10 +53,10 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 
 	fmt.Println("[app]: Token gerado.")
 
-	New_User := req_res_types.User{
+	New_User := usertype.User{
 		Data_User:       b,
 		Token:           token,
-		Subscription_ID: b.Subscription_ID,
+		Subscription_ID: b.Subscription_id,
 	}
 
 	if errToCleanToken := dbactionsservice.Update_Token_User(&New_User); errToCleanToken != nil {

@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	dbtoolkit "ApiExtention.com/src/services/db_service/funcs/toolkit"
-	req_res_types "ApiExtention.com/src/types"
+	reqkiwifywhtype "ApiExtention.com/src/types/req_kiwify_wh"
+	usertype "ApiExtention.com/src/types/user"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -22,7 +23,7 @@ func Query_Token(tokenToSearch string) bool {
 	coll := client.Database("MinerAds").Collection("users")
 	filter := bson.D{{Key: "token", Value: tokenToSearch}}
 
-	result := req_res_types.User{}
+	result := usertype.User{}
 
 	if err = coll.FindOne(context.Background(), filter).Decode(&result); err != nil {
 		fmt.Println(err)
@@ -32,7 +33,7 @@ func Query_Token(tokenToSearch string) bool {
 }
 
 // Insert a New User in DB
-func Isert_New_User_in_DB(newUser *req_res_types.User) error {
+func Isert_New_User_in_DB(newUser *usertype.User) error {
 	context_custom := context.Background()
 
 	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
@@ -43,10 +44,10 @@ func Isert_New_User_in_DB(newUser *req_res_types.User) error {
 
 	coll := client.Database("MinerAds").Collection("users")
 
-	new_user := req_res_types.User{
+	new_user := usertype.User{
 		Data_User:       newUser.Data_User,
 		Token:           newUser.Token,
-		Subscription_ID: newUser.Data_User.Subscription_ID,
+		Subscription_ID: newUser.Data_User.Subscription_id,
 	}
 
 	_, errInsert := coll.InsertOne(context_custom, new_user)
@@ -60,7 +61,7 @@ func Isert_New_User_in_DB(newUser *req_res_types.User) error {
 }
 
 // Delete an User DB
-func Delete_User(subscription *req_res_types.KiwifyResponse) error {
+func Delete_User(subscription *reqkiwifywhtype.Req_Kiwify_Wh_Type) error {
 	context_custom := context.Background()
 
 	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
@@ -70,7 +71,7 @@ func Delete_User(subscription *req_res_types.KiwifyResponse) error {
 	}
 
 	coll := client.Database("MinerAds").Collection("users")
-	to_delete := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
+	to_delete := bson.D{{Key: "subscription_id", Value: subscription.Subscription_id}}
 
 	_, errInsert := coll.DeleteMany(context_custom, to_delete)
 	if errInsert != nil {
@@ -83,7 +84,7 @@ func Delete_User(subscription *req_res_types.KiwifyResponse) error {
 }
 
 // Delete Token for overdue subscriptions
-func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
+func Clean_Token_User(subscription *reqkiwifywhtype.Req_Kiwify_Wh_Type) error {
 	context_custom := context.Background()
 
 	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)
@@ -93,7 +94,7 @@ func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
 	}
 
 	coll := client.Database("MinerAds").Collection("users")
-	filter := bson.D{{Key: "subscription_id", Value: subscription.Subscription_ID}}
+	filter := bson.D{{Key: "subscription_id", Value: subscription.Subscription_id}}
 	update_to := bson.D{{Key: "$set", Value: bson.D{{Key: "token", Value: ""}}}}
 
 	_, errInsert := coll.UpdateOne(context_custom, filter, update_to)
@@ -107,7 +108,7 @@ func Clean_Token_User(subscription *req_res_types.KiwifyResponse) error {
 }
 
 // Update Token for renewed subscriptions
-func Update_Token_User(user *req_res_types.User) error {
+func Update_Token_User(user *usertype.User) error {
 	context_custom := context.Background()
 
 	client, errGen := dbtoolkit.Gen_ServerAPIClient(&context_custom)

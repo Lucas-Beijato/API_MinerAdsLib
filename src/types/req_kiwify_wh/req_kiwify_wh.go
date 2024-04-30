@@ -1,6 +1,6 @@
-package renewedsubscription
+package reqkiwifywhtype
 
-type Renewed_subscription struct {
+type Req_Kiwify_Wh_Type struct {
 	Order_id              string             `json:"order_id"`
 	Order_ref             string             `json:"order_ref"`
 	Order_status          string             `json:"order_status"`
@@ -29,6 +29,7 @@ type Renewed_subscription struct {
 	TrackingParameters    TrackingParameters `json:"TrackingParameters"`
 	Subscription          Subscription       `json:"Subscription"`
 	Subscription_id       string             `json:"subscription_id"`
+	Access_url            string             `json:"access_url"`
 }
 
 type Product struct {
