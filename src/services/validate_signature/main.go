@@ -16,7 +16,7 @@ func ValidateSignature(req_message []byte, req_message_signature []byte, token [
 	expectedMAC := hex.EncodeToString(true_signature.Sum(nil))
 	fmt.Println("metodo1: ", expectedMAC)
 
-	fmt.Println("Assinatura recebida: ", req_message_signature)
+	fmt.Println("Assinatura recebida: ", string(req_message_signature))
 	fmt.Println("Assinatura Gerada pelo sistema: ", expectedMAC)
 
 	return hmac.Equal(req_message_signature, []byte(expectedMAC))
