@@ -8,7 +8,7 @@ type Req_Kiwify_Wh_Type struct {
 	Payment_method        string             `json:"payment_method"`
 	Store_id              string             `json:"store_id"`
 	Payment_merchant_Id   string             `json:"payment_merchant_id"`
-	Installments          int8               `json:"installments"`
+	Installments          int64              `json:"installments"`
 	Card_type             string             `json:"card_type"`
 	Card_last4digits      string             `json:"card_last4digits"`
 	Card_rejection_reason string             `json:"card_rejection_reason"`
@@ -89,7 +89,7 @@ type Plan struct {
 	Id          string `json:"id"`
 	Name        string `json:"name"`
 	Frequency   string `json:"frequency"`
-	Qty_charges int8   `json:"qty_charges"`
+	Qty_charges int64  `json:"qty_charges"`
 }
 
 type Charges struct {
@@ -101,7 +101,7 @@ type Completed struct {
 	Order_id          string `json:"order_id"`
 	Amount            int64  `json:"amount"`
 	Status            string `json:"status"`
-	Installments      int8   `json:"installments"`
+	Installments      int64  `json:"installments"`
 	Card_type         string `json:"card_type"`
 	Card_last_digits  string `json:"card_last_digits"`
 	Card_first_digits string `json:"card_first_digits"`
