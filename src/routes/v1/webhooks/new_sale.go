@@ -1,7 +1,6 @@
 package webhooks
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 
@@ -30,18 +29,11 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		fmt.Println("New Sale Token Not Present")
 		return c.SendStatus(400)
 	}
-
 	signature := new(req_res_types.ParamsSignature)
 	if err := c.QueryParser(signature); err != nil {
 		return err
 	}
-
-	bodyMessage, err_json_marshal := json.Marshal(b)
-	fmt.Printf("Json: %s", string(bodyMessage))
-	if err_json_marshal != nil {
-		fmt.Println("Error to Marshal Json")
-		return c.SendStatus(400)
-	}
+	bodyMessage := c.BodyRaw()
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
