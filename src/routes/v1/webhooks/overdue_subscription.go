@@ -2,9 +2,11 @@ package webhooks
 
 import (
 	"fmt"
+	"os"
 
 	dbactionsservice "ApiExtention.com/src/services/db_service/funcs/actions"
 	emailservice "ApiExtention.com/src/services/email_service/funcs"
+	validatesignature "ApiExtention.com/src/services/validate_signature"
 	req_res_types "ApiExtention.com/src/types"
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,28 +21,23 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(400)
 	}
 
-	// // Validate Signature
-	// key, isPresentKey := os.LookupEnv("TK_OVERDUE_SUBSCRIPTION")
-	// if !isPresentKey {
-	// 	fmt.Println("Overdue Subscription Token Not Present")
-	// 	return c.SendStatus(400)
-	// }
+	// Validate Signature
+	key, isPresentKey := os.LookupEnv("TK_OVERDUE_SUBSCRIPTION")
+	if !isPresentKey {
+		fmt.Println("Overdue Subscription Token Not Present")
+		return c.SendStatus(400)
+	}
 
-	// signature := new(req_res_types.ParamsSignature)
-	// if err := c.QueryParser(signature); err != nil {
-	// 	return err
-	// }
-
-	// bodyMessage, err_json_marshal := json.Marshal(b)
-	// if err_json_marshal != nil {
-	// 	fmt.Println("Error to Marshal Json")
-	// 	return c.SendStatus(400)
-	// }
-	// isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
-	// if !isValidSignature {
-	// 	fmt.Println("Not Valid Signature")
-	// 	return c.SendStatus(400)
-	// }
+	signature := new(req_res_types.ParamsSignature)
+	if err := c.QueryParser(signature); err != nil {
+		return err
+	}
+	bodyMessage := c.BodyRaw()
+	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
+	if !isValidSignature {
+		fmt.Println("Not Valid Signature")
+		return c.SendStatus(400)
+	}
 
 	if errToCleanToken := dbactionsservice.Clean_Token_User(b); errToCleanToken != nil {
 		fmt.Println("[app]: Error to clean token in DB.")
