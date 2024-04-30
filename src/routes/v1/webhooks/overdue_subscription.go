@@ -38,7 +38,7 @@ func Wh_Overdue_Sub_Handler(c *fiber.Ctx) error {
 
 	b := new(reqkiwifywhtype.Req_Kiwify_Wh_Type)
 	if err := c.BodyParser(b); err != nil {
-		fmt.Println("[app]: Error to parse body")
+		fmt.Println("[app]: Error to parse body: ", err)
 		return c.SendStatus(400)
 	}
 

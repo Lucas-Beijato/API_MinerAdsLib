@@ -13,7 +13,7 @@ import (
 func Validate_Token_Handler(c *fiber.Ctx) error {
 	b := new(tokentype.Validate_Token_Body)
 	if err := c.BodyParser(b); err != nil {
-		fmt.Println("Erro no parse body")
+		fmt.Println("[app]: Error to parse body: ", err)
 	}
 
 	if b.Token == "" {
