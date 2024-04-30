@@ -34,7 +34,11 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return err
 	}
 	bodyMessage := c.Body()
-	fmt.Println("Print Body Raw: ", string(bodyMessage))
+
+	fmt.Println("Assinatura Coletada: ", signature)
+	fmt.Println("Body coletado: ", string(bodyMessage))
+	fmt.Println("chave do sistema coletada: ", key)
+
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
