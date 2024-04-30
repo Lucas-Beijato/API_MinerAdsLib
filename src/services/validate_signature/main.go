@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/sha512"
+	"encoding/hex"
 	"fmt"
 )
 
@@ -14,7 +15,7 @@ func ValidateSignature(req_message []byte, req_message_signature []byte, token [
 	// Método principal
 	true_signature := hmac.New(sha1.New, token)
 	true_signature.Write(req_message)
-	expectedMAC := true_signature.Sum(nil)
+	expectedMAC := hex.EncodeToString(true_signature.Sum(nil))
 	fmt.Println("metodo1: ", expectedMAC)
 
 	metodo224 := hmac.New(sha256.New224, token)
@@ -39,5 +40,5 @@ func ValidateSignature(req_message []byte, req_message_signature []byte, token [
 
 	fmt.Println("Assinatura recebida: ", req_message_signature)
 
-	return hmac.Equal(req_message_signature, expectedMAC)
+	return hmac.Equal(req_message_signature, []byte(expectedMAC))
 }
