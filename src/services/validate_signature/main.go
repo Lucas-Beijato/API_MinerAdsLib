@@ -11,7 +11,12 @@ import (
 // Func - Validate Signature
 func ValidateSignature(req_message []byte, req_message_signature []byte, token []byte) bool {
 
-	// Teste de métodos
+	// Método principal
+	true_signature := hmac.New(sha1.New, token)
+	true_signature.Write(req_message)
+	expectedMAC := true_signature.Sum(nil)
+	fmt.Println("metodo1: ", expectedMAC)
+
 	metodo224 := hmac.New(sha256.New224, token)
 	metodo224.Write(req_message)
 	expectedMAC224 := metodo224.Sum(nil)
@@ -32,16 +37,7 @@ func ValidateSignature(req_message []byte, req_message_signature []byte, token [
 	expectedMAC512 := metodo512.Sum(nil)
 	fmt.Println("metodo512: ", expectedMAC512)
 
-	// Método principal
-	true_signature := hmac.New(sha1.New, token)
-	true_signature.Write(req_message)
-	expectedMAC := true_signature.Sum(nil)
-
-	fmt.Println("Mensagem recebida", string(req_message))
 	fmt.Println("Assinatura recebida", string(req_message_signature))
-	fmt.Println("Comparando as chaves:")
-	fmt.Println(req_message_signature)
-	fmt.Println(expectedMAC)
 
 	return hmac.Equal(req_message_signature, expectedMAC)
 }

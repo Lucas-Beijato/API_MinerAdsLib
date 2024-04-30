@@ -33,7 +33,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 	if err := c.QueryParser(signature); err != nil {
 		return err
 	}
-	bodyMessage := c.Body()
+	bodyMessage := c.BodyRaw()
 	isValidSignature := validatesignature.ValidateSignature(bodyMessage, []byte(signature.Signature), []byte(key))
 	if !isValidSignature {
 		fmt.Println("Not Valid Signature")
