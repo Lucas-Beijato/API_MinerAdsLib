@@ -50,7 +50,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("[app]: Token gerado.")
+	fmt.Println("[app]: Token gerado: ", token)
 
 	New_User := usertype.User{
 		Data_User: b,
@@ -62,7 +62,7 @@ func New_Sale_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("[app]: Adicionado ao banco de dados.")
+	fmt.Println("[app]: Adicionado ao banco de dados: ", New_User)
 
 	// EMAIL
 	to := []string{New_User.Data_User.Costumer.Email, "mineradslib@gmail.com"}

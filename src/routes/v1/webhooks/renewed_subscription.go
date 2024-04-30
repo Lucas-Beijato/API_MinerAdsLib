@@ -51,7 +51,7 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("[app]: Token gerado.")
+	fmt.Println("[app]: Token gerado: ", token)
 
 	New_User := usertype.User{
 		Data_User:       b,
@@ -64,7 +64,7 @@ func Wh_Renewed_Sub_Handler(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	fmt.Println("[app]: Token Atualizado no sistema!")
+	fmt.Println("[app]: Token Atualizado no DB!")
 
 	to := []string{New_User.Data_User.Costumer.Email, "mineradslib@gmail.com"}
 	subject := "[Renovado] - Um recado de MinerAdsLib."
