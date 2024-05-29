@@ -47,7 +47,7 @@ type Costumer struct {
 }
 
 type Commissions struct {
-	Charge_amount          string                `json:"charge_amount"`
+	Charge_amount          int64                 `json:"charge_amount"`
 	Product_base_price     string                `json:"product_base_price"`
 	Kiwify_fee             string                `json:"kiwify_fee"`
 	Commissioned_stores    []Commissioned_stores `json:"commissioned_stores"`
